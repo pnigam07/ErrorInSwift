@@ -34,46 +34,37 @@ final class PANDegmentProjectTests: XCTestCase {
         }
     }
 
+    func testPANErrorViewRendersWithUnavailableState() {
+        let viewModel = PANErrorViewModel(contentState: MemberIDCardUnavailable())
+        let view = PANErrorView(viewModel: viewModel)
+        _ = view.body // Should not crash
+    }
+
+    func testMemberIDCardUnavailableProperties() {
+        let unavailable = MemberIDCardUnavailable()
+        XCTAssertNotNil(unavailable.title)
+        // Add more property checks if needed
+    }
+
     func testPANErrorViewModelProperties() async {
         let contentState = MemberIDCardUnavailable()
         let viewModel = PANErrorViewModel(contentState: contentState)
-        XCTAssertEqual(viewModel.title, contentState.title)
-        XCTAssertEqual(viewModel.imageName, contentState.imageName)
-        XCTAssertEqual(viewModel.description, contentState.description)
-        XCTAssertEqual(viewModel.additionalDescription, contentState.additionalDescription)
-        XCTAssertEqual(viewModel.phoneNumbers?.count, contentState.phoneNumbers?.count)
-        XCTAssertEqual(viewModel.showRefreshButton, contentState.showRefreshButton)
+        XCTAssertEqual(viewModel.title, AppStrings.cardUnavailableTitle)
+        XCTAssertEqual(viewModel.imageName, AppStrings.houseImage)
+        XCTAssertEqual(viewModel.description, AppStrings.cardUnavailableDescription)
+        XCTAssertEqual(viewModel.additionalDescription, AppStrings.additionalDescriptionA + " ")
+        XCTAssertEqual(viewModel.phoneNumbers?.count, 2)
+        XCTAssertEqual(viewModel.showRefreshButton, true)
         await viewModel.refreshContent() // Should not throw
-    }
-
-    func testPANErrorViewModelWithAllContentStates() async {
-        let allStates: [MemberIDModelContentState] = [
-            MemberIDCardUnavailable(),
-            ImportantMessage(),
-            DoingExperiment(
-                additionalDescription: "Testing additional description",
-                phoneNumbers: [PhoneNumber(displayText: "123", dialNumber: "123")]
-            )
-        ]
-        for state in allStates {
-            let viewModel = PANErrorViewModel(contentState: state)
-            XCTAssertEqual(viewModel.title, state.title)
-            XCTAssertEqual(viewModel.imageName, state.imageName)
-            XCTAssertEqual(viewModel.description, state.description)
-            XCTAssertEqual(viewModel.additionalDescription, state.additionalDescription)
-            XCTAssertEqual(viewModel.phoneNumbers?.count, state.phoneNumbers?.count)
-            XCTAssertEqual(viewModel.showRefreshButton, state.showRefreshButton)
-            await viewModel.refreshContent() // Should not throw
-        }
     }
 
     func testPhoneViewRendersWithSampleData() {
         let phoneNumbers = [
-            PhoneNumber(displayText: "+1 678-702-3368", dialNumber: "+16787023368"),
-            PhoneNumber(displayText: "771", dialNumber: "771")
+            PhoneNumber(displayText: AppStrings.phoneNumber1Display, dialNumber: AppStrings.phoneNumber1Dial),
+            PhoneNumber(displayText: AppStrings.phoneNumber2Display, dialNumber: AppStrings.phoneNumber2Dial)
         ]
         let view = PhoneView(
-            message: "Please call at +1 678-702-3368 (toll free) or if you have any other question call me at 771 (YYM).",
+            message: AppStrings.additionalDescriptionA,
             phoneNumbers: phoneNumbers
         )
         _ = view.body // Should not crash

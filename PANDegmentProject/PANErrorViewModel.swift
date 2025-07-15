@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 protocol MemberIDModelContentState {
     var imageName: String { get }
     var title: String { get }
@@ -17,12 +18,14 @@ protocol MemberIDModelContentState {
 }
 
 struct MemberIDCardUnavailable: MemberIDModelContentState {
-    let imageName: String = "house.fill"
-    let title: String = "card unavailable"
-    let description: String? = "we are sorry bit this feature is not available so how is your day going on hope everythiong is alright please do let me know"
-    let additionalDescription: String? = "Please call at +1 678-702-3368 (toll free) or if you have any other question call me at 771 (YYM). "
-    let phoneNumbers: [PhoneNumber]? = [PhoneNumber(displayText: "+1 678-702-3368", dialNumber: "+16787023368"),
-    PhoneNumber(displayText: "771 (YYM)", dialNumber: "771")]
+    let imageName: String = AppStrings.houseImage
+    let title: String = AppStrings.cardUnavailableTitle
+    let description: String? = AppStrings.cardUnavailableDescription
+    let additionalDescription: String? = AppStrings.additionalDescriptionA + " "
+    let phoneNumbers: [PhoneNumber]? = [
+        PhoneNumber(displayText: AppStrings.phoneNumber1Display, dialNumber: AppStrings.phoneNumber1Dial),
+        PhoneNumber(displayText: AppStrings.phoneNumber2Display, dialNumber: AppStrings.phoneNumber2Dial)
+    ]
     let showRefreshButton: Bool = true
 }
 
@@ -34,15 +37,6 @@ struct ImportantMessage: MemberIDModelContentState {
     let phoneNumbers: [PhoneNumber]? = [PhoneNumber(displayText: "+1 678-702-3368 (toll free)", dialNumber: "+16787023368"),
     PhoneNumber(displayText: "771 (YYM)", dialNumber: "771")]
     let showRefreshButton: Bool = false
-}
-
-struct DoingExperiment: MemberIDModelContentState {
-    let imageName: String = "house.fill"
-    let title: String = "Important Messaage"
-    let description: String? = "we are sorry bit this feature is not available so how is your day going on hope everythiong is alright please do let me know"
-    var additionalDescription: String?
-    let phoneNumbers: [PhoneNumber]?
-    let showRefreshButton: Bool = true
 }
 
 class PANErrorViewModel: ObservableObject {

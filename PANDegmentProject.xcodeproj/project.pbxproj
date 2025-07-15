@@ -20,6 +20,7 @@
 		19DD922E2E24FA99005B742F /* PANErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DD922D2E24FA99005B742F /* PANErrorView.swift */; };
 		19DD92302E250AE7005B742F /* PhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DD922F2E250AE7005B742F /* PhoneView.swift */; };
 		19DD92322E265ACF005B742F /* PANErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DD92312E265ACF005B742F /* PANErrorViewModel.swift */; };
+		19DD92362E26B9D0005B742F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DD92352E26B9D0005B742F /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		19DD922D2E24FA99005B742F /* PANErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PANErrorView.swift; sourceTree = "<group>"; };
 		19DD922F2E250AE7005B742F /* PhoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneView.swift; sourceTree = "<group>"; };
 		19DD92312E265ACF005B742F /* PANErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PANErrorViewModel.swift; sourceTree = "<group>"; };
+		19DD92352E26B9D0005B742F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 		19DD922C2E24F8EE005B742F /* ErrorView */ = {
 			isa = PBXGroup;
 			children = (
+				19DD92352E26B9D0005B742F /* Constants.swift */,
 				19DD922D2E24FA99005B742F /* PANErrorView.swift */,
 				19DD922F2E250AE7005B742F /* PhoneView.swift */,
 				19DD922A2E24F8E9005B742F /* PANRootView.swift */,
@@ -285,6 +288,7 @@
 				19DD922B2E24F8E9005B742F /* PANRootView.swift in Sources */,
 				19DD92322E265ACF005B742F /* PANErrorViewModel.swift in Sources */,
 				19DD91FD2E24F7A4005B742F /* SceneDelegate.swift in Sources */,
+				19DD92362E26B9D0005B742F /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
