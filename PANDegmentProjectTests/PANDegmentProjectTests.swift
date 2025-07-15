@@ -7,6 +7,7 @@
 
 import XCTest
 @testable import PANDegmentProject
+import SwiftUI
 
 final class PANDegmentProjectTests: XCTestCase {
 
@@ -33,4 +34,23 @@ final class PANDegmentProjectTests: XCTestCase {
         }
     }
 
+    func testMemberIDViewRendersContent() throws {
+        let testData = MemberIDData(
+            message: "Test message",
+            phoneMessage: "Test phone message",
+            phoneNumbers: [
+                PhoneNumber(displayText: "+1 111-111-1111", dialNumber: "+11111111111")
+            ],
+            showRefreshButton: true
+        )
+        let viewModel = PANErrorViewModel(
+            loadContentA: { testData },
+            loadContentB: { testData },
+            initialState: .contentA(testData)
+        )
+        let view = PANErrorView(viewModel: viewModel)
+        // This will not crash if the view can be initialized and body can be accessed
+        _ = view.body
+        // For more advanced UI testing, use ViewInspector or snapshot tests
+    }
 }

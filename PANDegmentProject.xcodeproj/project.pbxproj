@@ -16,6 +16,10 @@
 		19DD92122E24F7A5005B742F /* PANDegmentProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DD92112E24F7A5005B742F /* PANDegmentProjectTests.swift */; };
 		19DD921C2E24F7A5005B742F /* PANDegmentProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DD921B2E24F7A5005B742F /* PANDegmentProjectUITests.swift */; };
 		19DD921E2E24F7A5005B742F /* PANDegmentProjectUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DD921D2E24F7A5005B742F /* PANDegmentProjectUITestsLaunchTests.swift */; };
+		19DD922B2E24F8E9005B742F /* PANRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DD922A2E24F8E9005B742F /* PANRootView.swift */; };
+		19DD922E2E24FA99005B742F /* PANErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DD922D2E24FA99005B742F /* PANErrorView.swift */; };
+		19DD92302E250AE7005B742F /* PhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DD922F2E250AE7005B742F /* PhoneView.swift */; };
+		19DD92322E265ACF005B742F /* PANErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DD92312E265ACF005B742F /* PANErrorViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,10 @@
 		19DD92172E24F7A5005B742F /* PANDegmentProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PANDegmentProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		19DD921B2E24F7A5005B742F /* PANDegmentProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PANDegmentProjectUITests.swift; sourceTree = "<group>"; };
 		19DD921D2E24F7A5005B742F /* PANDegmentProjectUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PANDegmentProjectUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		19DD922A2E24F8E9005B742F /* PANRootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PANRootView.swift; sourceTree = "<group>"; };
+		19DD922D2E24FA99005B742F /* PANErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PANErrorView.swift; sourceTree = "<group>"; };
+		19DD922F2E250AE7005B742F /* PhoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneView.swift; sourceTree = "<group>"; };
+		19DD92312E265ACF005B742F /* PANErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PANErrorViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +107,7 @@
 		19DD91F92E24F7A4005B742F /* PANDegmentProject */ = {
 			isa = PBXGroup;
 			children = (
+				19DD922C2E24F8EE005B742F /* ErrorView */,
 				19DD91FA2E24F7A4005B742F /* AppDelegate.swift */,
 				19DD91FC2E24F7A4005B742F /* SceneDelegate.swift */,
 				19DD91FE2E24F7A4005B742F /* ViewController.swift */,
@@ -125,6 +134,17 @@
 				19DD921D2E24F7A5005B742F /* PANDegmentProjectUITestsLaunchTests.swift */,
 			);
 			path = PANDegmentProjectUITests;
+			sourceTree = "<group>";
+		};
+		19DD922C2E24F8EE005B742F /* ErrorView */ = {
+			isa = PBXGroup;
+			children = (
+				19DD922D2E24FA99005B742F /* PANErrorView.swift */,
+				19DD922F2E250AE7005B742F /* PhoneView.swift */,
+				19DD922A2E24F8E9005B742F /* PANRootView.swift */,
+				19DD92312E265ACF005B742F /* PANErrorViewModel.swift */,
+			);
+			name = ErrorView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,8 +278,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19DD922E2E24FA99005B742F /* PANErrorView.swift in Sources */,
+				19DD92302E250AE7005B742F /* PhoneView.swift in Sources */,
 				19DD91FF2E24F7A4005B742F /* ViewController.swift in Sources */,
 				19DD91FB2E24F7A4005B742F /* AppDelegate.swift in Sources */,
+				19DD922B2E24F8E9005B742F /* PANRootView.swift in Sources */,
+				19DD92322E265ACF005B742F /* PANErrorViewModel.swift in Sources */,
 				19DD91FD2E24F7A4005B742F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
