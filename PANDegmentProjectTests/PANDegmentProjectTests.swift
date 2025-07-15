@@ -46,4 +46,37 @@ final class PANDegmentProjectTests: XCTestCase {
         await viewModel.refreshContent() // Should not throw
     }
 
+    func testPANErrorViewModelWithAllContentStates() async {
+        let allStates: [MemberIDModelContentState] = [
+            MemberIDCardUnavailable(),
+            ImportantMessage(),
+            DoingExperiment(
+                additionalDescription: "Testing additional description",
+                phoneNumbers: [PhoneNumber(displayText: "123", dialNumber: "123")]
+            )
+        ]
+        for state in allStates {
+            let viewModel = PANErrorViewModel(contentState: state)
+            XCTAssertEqual(viewModel.title, state.title)
+            XCTAssertEqual(viewModel.imageName, state.imageName)
+            XCTAssertEqual(viewModel.description, state.description)
+            XCTAssertEqual(viewModel.additionalDescription, state.additionalDescription)
+            XCTAssertEqual(viewModel.phoneNumbers?.count, state.phoneNumbers?.count)
+            XCTAssertEqual(viewModel.showRefreshButton, state.showRefreshButton)
+            await viewModel.refreshContent() // Should not throw
+        }
+    }
+
+    func testPhoneViewRendersWithSampleData() {
+        let phoneNumbers = [
+            PhoneNumber(displayText: "+1 678-702-3368", dialNumber: "+16787023368"),
+            PhoneNumber(displayText: "771", dialNumber: "771")
+        ]
+        let view = PhoneView(
+            message: "Please call at +1 678-702-3368 (toll free) or if you have any other question call me at 771 (YYM).",
+            phoneNumbers: phoneNumbers
+        )
+        _ = view.body // Should not crash
+    }
+
 }
