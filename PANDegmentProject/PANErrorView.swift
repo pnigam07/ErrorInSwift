@@ -1,5 +1,16 @@
 import SwiftUI
 
+struct Constants {
+    static let textTag1 = "text1"
+    static let textTag2 = "text2"
+    static let textTag3 = "text3"
+    static let textTag4 = "text4"
+    static let textTag5 = "text5"
+    static let textTag6 = "text6"
+    static let textTag7 = "text7"
+}
+
+
 struct PANErrorView: View {
     @StateObject var viewModel: PANErrorViewModel
 
@@ -14,6 +25,7 @@ struct PANErrorView: View {
                     .scaledToFit()
                     .frame(width: 50, height: 50)
                     .foregroundColor(.blue)
+                    .tag(Constants.textTag1)
             }
 
             Text(viewModel.title)
@@ -21,18 +33,21 @@ struct PANErrorView: View {
                 .fontWeight(.semibold)
                 .foregroundColor(.blue)
                 .padding(.top, 8)
+                .tag(Constants.textTag2)
 
             if let description = viewModel.description {
                 Text(description)
                     .font(.body)
                     .multilineTextAlignment(.leading)
                     .padding(.horizontal)
+                    .tag(Constants.textTag3)
             }
             if let additionalDescription = viewModel.additionalDescription, let phoneNumbers = viewModel.phoneNumbers {
                 PhoneView(
                     message: additionalDescription,
                     phoneNumbers: phoneNumbers
                 )
+                .tag(Constants.textTag4)
             }
             if viewModel.showRefreshButton ?? false {
                 Button(action: {
@@ -54,6 +69,7 @@ struct PANErrorView: View {
                         .background(Color.blue)
                         .cornerRadius(8)
                 }
+                .tag(Constants.textTag5)
             }
             Spacer()
         }

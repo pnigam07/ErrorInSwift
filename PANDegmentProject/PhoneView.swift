@@ -1,5 +1,6 @@
 import SwiftUI
 
+
 struct PhoneView: View {
     let message: String
     let phoneNumbers: [PhoneNumber]
@@ -15,6 +16,7 @@ struct PhoneView: View {
                 }
             }
             .padding(.horizontal)
+            .tag("phoneViewText")
     }
     
     private func makeAttributedString() -> AttributedString {
@@ -28,6 +30,8 @@ struct PhoneView: View {
         return attributed
     }
 }
+
+    //extension PhoneView: Inspectable {}
 
 struct PhoneNumber {
     let displayText: String

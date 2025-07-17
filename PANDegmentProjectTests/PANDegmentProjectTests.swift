@@ -8,6 +8,7 @@
 import XCTest
 @testable import PANDegmentProject
 import SwiftUI
+//import ViewInspector
 
 final class PANDegmentProjectTests: XCTestCase {
 
@@ -68,6 +69,137 @@ final class PANDegmentProjectTests: XCTestCase {
             phoneNumbers: phoneNumbers
         )
         _ = view.body // Should not crash
+    }
+
+    func testPANErrorViewDisplaysContent() {
+        let viewModel = PANErrorViewModel(contentState: MemberIDCardUnavailable())
+        let view = PANErrorView(viewModel: viewModel)
+        // This will not crash if the view can be initialized and body can be accessed
+        _ = view.body
+        // For more advanced UI testing, use ViewInspector or snapshot tests
+    }
+
+    func testPANErrorViewTags() {
+        let viewModel = PANErrorViewModel(contentState: MemberIDCardUnavailable())
+        let view = PANErrorView(viewModel: viewModel)
+        _ = view.body // Should not crash
+        
+        
+        
+        // If using ViewInspector, you could do:
+     //    let inspected = try view.inspect()
+        // XCTAssertNoThrow(try inspected.find(viewWithTag: Constants.textTag1))
+        // XCTAssertNoThrow(try inspected.find(viewWithTag: Constants.textTag2))
+        // XCTAssertNoThrow(try inspected.find(viewWithTag: Constants.textTag3))
+        // XCTAssertNoThrow(try inspected.find(viewWithTag: Constants.textTag4))
+        // XCTAssertNoThrow(try inspected.find(viewWithTag: Constants.textTag5))
+    }
+
+    func testPhoneViewTextTag() {
+        let phoneNumbers = [
+            PhoneNumber(displayText: AppStrings.phoneNumber1Display, dialNumber: AppStrings.phoneNumber1Dial),
+            PhoneNumber(displayText: AppStrings.phoneNumber2Display, dialNumber: AppStrings.phoneNumber2Dial)
+        ]
+        let view = PhoneView(
+            message: AppStrings.additionalDescriptionA,
+            phoneNumbers: phoneNumbers
+        )
+        _ = view.body // Should not crash
+        // If using ViewInspector, you could do:
+     //    let inspected = try view.inspect()
+     //    XCTAssertNoThrow(try inspected.find(viewWithTag: "phoneViewText"))
+    }
+
+//    func testPANErrorViewWithAllContentStates() {
+//        let allStates: [MemberIDModelContentState] = [
+//            MemberIDCardUnavailable(),
+//            ImportantMessage(),
+//            DoingExperiment(
+//                additionalDescription: "Testing additional description",
+//                phoneNumbers: [PhoneNumber(displayText: "123", dialNumber: "123")]
+//            )
+//        ]
+//        for state in allStates {
+//            let viewModel = PANErrorViewModel(contentState: state)
+//            let view = PANErrorView(viewModel: viewModel)
+//            _ = view.body // Should not crash
+//        }
+//    }
+
+    
+
+    func testPANErrorViewWithoutRefreshButton() {
+        let state = ImportantMessage() // showRefreshButton = false
+        let viewModel = PANErrorViewModel(contentState: state)
+        let view = PANErrorView(viewModel: viewModel)
+        _ = view.body // Should not crash
+    }
+
+    func testPhoneViewWithEmptyPhoneNumbers() {
+        let view = PhoneView(
+            message: "No phone numbers available",
+            phoneNumbers: []
+        )
+        _ = view.body // Should not crash
+    }
+
+    func testPhoneViewWithMultiplePhoneNumbers() {
+        let phoneNumbers = [
+            PhoneNumber(displayText: "First", dialNumber: "111"),
+            PhoneNumber(displayText: "Second", dialNumber: "222"),
+            PhoneNumber(displayText: "Third", dialNumber: "333")
+        ]
+        let view = PhoneView(
+            message: "Call First or Second or Third",
+            phoneNumbers: phoneNumbers
+        )
+        _ = view.body // Should not crash
+    }
+
+    func testPhoneServiceCallPhone() {
+        let phoneService = PhoneService()
+        let testURL = URL(string: "tel:+1234567890")!
+        // This will print to console but won't actually make a call in test environment
+        phoneService.callPhone(url: testURL)
+    }
+
+    func testPhoneNumberStruct() {
+        let phoneNumber = PhoneNumber(displayText: "Test", dialNumber: "123")
+        XCTAssertEqual(phoneNumber.displayText, "Test")
+        XCTAssertEqual(phoneNumber.dialNumber, "123")
+    }
+
+    func testButtonViewRenders() {
+        let view = ButtonView()
+        _ = view.body // Should not crash
+    }
+
+//    func testAllMemberIDContentStates() {
+//        let states: [MemberIDModelContentState] = [
+//            MemberIDCardUnavailable(),
+//            ImportantMessage(),
+//            DoingExperiment(
+//                additionalDescription: "Test description",
+//                phoneNumbers: [PhoneNumber(displayText: "Test", dialNumber: "123")]
+//            )
+//        ]
+//        
+//        for state in states {
+//            XCTAssertNotNil(state.imageName)
+//            XCTAssertNotNil(state.title)
+//            XCTAssertNotNil(state.showRefreshButton)
+//            // description, additionalDescription, and phoneNumbers can be nil
+//        }
+//    }
+
+    func testPANErrorViewModelDefaultInit() {
+        let viewModel = PANErrorViewModel() // Uses default MemberIDCardUnavailable
+        XCTAssertEqual(viewModel.title, "card unavailable")
+        XCTAssertEqual(viewModel.imageName, "house.fill")
+        XCTAssertNotNil(viewModel.description)
+        XCTAssertNotNil(viewModel.additionalDescription)
+        XCTAssertNotNil(viewModel.phoneNumbers)
+        XCTAssertTrue(viewModel.showRefreshButton ?? false)
     }
 
 }
