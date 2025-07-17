@@ -26,6 +26,8 @@ struct PANErrorView: View {
                     .frame(width: 50, height: 50)
                     .foregroundColor(.blue)
                     .tag(Constants.textTag1)
+                    .accessibilityLabel("Error Icon")
+                    .accessibilityIdentifier("errorIconImage")
             }
 
             Text(viewModel.title)
@@ -34,6 +36,8 @@ struct PANErrorView: View {
                 .foregroundColor(.blue)
                 .padding(.top, 8)
                 .tag(Constants.textTag2)
+                .accessibilityLabel("Error Title")
+                .accessibilityIdentifier("errorTitleLabel")
 
             if let description = viewModel.description {
                 Text(description)
@@ -41,6 +45,8 @@ struct PANErrorView: View {
                     .multilineTextAlignment(.leading)
                     .padding(.horizontal)
                     .tag(Constants.textTag3)
+                    .accessibilityLabel("Error Description")
+                    .accessibilityIdentifier("errorDescriptionLabel")
             }
             if let additionalDescription = viewModel.additionalDescription, let phoneNumbers = viewModel.phoneNumbers {
                 PhoneView(
@@ -48,6 +54,8 @@ struct PANErrorView: View {
                     phoneNumbers: phoneNumbers
                 )
                 .tag(Constants.textTag4)
+                .accessibilityLabel("Phone Contact Information")
+                .accessibilityIdentifier("phoneView")
             }
             if viewModel.showRefreshButton ?? false {
                 Button(action: {
@@ -70,6 +78,8 @@ struct PANErrorView: View {
                         .cornerRadius(8)
                 }
                 .tag(Constants.textTag5)
+                .accessibilityLabel("Refresh")
+                .accessibilityIdentifier("refreshButton")
             }
             Spacer()
         }

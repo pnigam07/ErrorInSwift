@@ -36,6 +36,8 @@ struct ButtonView: View {
                         .stroke(Color.blue, lineWidth: 1)
                 )
             }
+            .accessibilityLabel("Refresh")
+            .accessibilityIdentifier("refreshButton")
         }
     }
 }

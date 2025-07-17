@@ -17,6 +17,8 @@ struct PhoneView: View {
             }
             .padding(.horizontal)
             .tag("phoneViewText")
+            .accessibilityLabel("Phone Contact Information")
+            .accessibilityIdentifier("phoneViewText")
     }
     
     private func makeAttributedString() -> AttributedString {
