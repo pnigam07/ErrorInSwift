@@ -50,10 +50,10 @@ final class PANDegmentProjectTests: XCTestCase {
     func testPANErrorViewModelProperties() async {
         let contentState = MemberIDCardUnavailable()
         let viewModel = PANErrorViewModel(contentState: contentState)
-        XCTAssertEqual(viewModel.title, AppStrings.cardUnavailableTitle)
-        XCTAssertEqual(viewModel.imageName, AppStrings.houseImage)
-        XCTAssertEqual(viewModel.description, AppStrings.cardUnavailableDescription)
-        XCTAssertEqual(viewModel.additionalDescription, AppStrings.additionalDescriptionA + " ")
+        XCTAssertEqual(viewModel.title, AppStrings.Titles.cardUnavailable)
+        XCTAssertEqual(viewModel.imageName, AppStrings.Icons.house)
+        XCTAssertEqual(viewModel.description, AppStrings.Descriptions.cardUnavailable)
+        XCTAssertEqual(viewModel.additionalDescription, AppStrings.AdditionalDescriptions.contentA)
         XCTAssertEqual(viewModel.phoneNumbers?.count, 2)
         XCTAssertEqual(viewModel.showRefreshButton, true)
         await viewModel.refreshContent() // Should not throw
@@ -61,11 +61,11 @@ final class PANDegmentProjectTests: XCTestCase {
 
     func testPhoneViewRendersWithSampleData() {
         let phoneNumbers = [
-            PhoneNumber(displayText: AppStrings.phoneNumber1Display, dialNumber: AppStrings.phoneNumber1Dial),
-            PhoneNumber(displayText: AppStrings.phoneNumber2Display, dialNumber: AppStrings.phoneNumber2Dial)
+            PhoneNumber(displayText: AppStrings.PhoneNumbers.Display.tollFree, dialNumber: AppStrings.PhoneNumbers.Dial.tollFree),
+            PhoneNumber(displayText: AppStrings.PhoneNumbers.Display.yym, dialNumber: AppStrings.PhoneNumbers.Dial.yym)
         ]
         let view = PhoneView(
-            message: AppStrings.additionalDescriptionA,
+            message: AppStrings.AdditionalDescriptions.contentA,
             phoneNumbers: phoneNumbers
         )
         _ = view.body // Should not crash
@@ -97,11 +97,11 @@ final class PANDegmentProjectTests: XCTestCase {
 
     func testPhoneViewTextTag() {
         let phoneNumbers = [
-            PhoneNumber(displayText: AppStrings.phoneNumber1Display, dialNumber: AppStrings.phoneNumber1Dial),
-            PhoneNumber(displayText: AppStrings.phoneNumber2Display, dialNumber: AppStrings.phoneNumber2Dial)
+            PhoneNumber(displayText: AppStrings.PhoneNumbers.Display.tollFree, dialNumber: AppStrings.PhoneNumbers.Dial.tollFree),
+            PhoneNumber(displayText: AppStrings.PhoneNumbers.Display.yym, dialNumber: AppStrings.PhoneNumbers.Dial.yym)
         ]
         let view = PhoneView(
-            message: AppStrings.additionalDescriptionA,
+            message: AppStrings.AdditionalDescriptions.contentA,
             phoneNumbers: phoneNumbers
         )
         _ = view.body // Should not crash
@@ -194,12 +194,31 @@ final class PANDegmentProjectTests: XCTestCase {
 
     func testPANErrorViewModelDefaultInit() {
         let viewModel = PANErrorViewModel() // Uses default MemberIDCardUnavailable
-        XCTAssertEqual(viewModel.title, "card unavailable")
-        XCTAssertEqual(viewModel.imageName, "house.fill")
+        XCTAssertEqual(viewModel.title, AppStrings.Titles.cardUnavailable)
+        XCTAssertEqual(viewModel.imageName, AppStrings.Icons.house)
         XCTAssertNotNil(viewModel.description)
         XCTAssertNotNil(viewModel.additionalDescription)
         XCTAssertNotNil(viewModel.phoneNumbers)
-        XCTAssertTrue(viewModel.showRefreshButton ?? false)
+        XCTAssertTrue(viewModel.showRefreshButton)
+    }
+
+    func testMemberListViewModelInitializationAndUpdate() {
+        let initialMembers = [
+            Member(id: 1, name: "Alice"),
+            Member(id: 2, name: "Bob")
+        ]
+        let viewModel = MemberListViewModel(members: initialMembers)
+        XCTAssertEqual(viewModel.members.count, 2)
+        XCTAssertEqual(viewModel.members[0].name, "Alice")
+        XCTAssertEqual(viewModel.members[1].name, "Bob")
+        
+        // Update members
+        let newMembers = [
+            Member(id: 3, name: "Charlie")
+        ]
+        viewModel.members = newMembers
+        XCTAssertEqual(viewModel.members.count, 1)
+        XCTAssertEqual(viewModel.members[0].name, "Charlie")
     }
 
 }

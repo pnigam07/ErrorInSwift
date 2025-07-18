@@ -1,0 +1,6 @@
+framework module Pods_PANDegmentProject {
+  umbrella header "Pods-PANDegmentProject-umbrella.h"
+
+  export *
+  module * { export * }
+}

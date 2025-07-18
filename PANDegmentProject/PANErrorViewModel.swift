@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+// MARK: - Protocols
 protocol MemberIDModelContentState {
     var imageName: String { get }
     var title: String { get }
@@ -17,46 +17,52 @@ protocol MemberIDModelContentState {
     var showRefreshButton: Bool { get }
 }
 
+// MARK: - Content States
 struct MemberIDCardUnavailable: MemberIDModelContentState {
-    let imageName: String = AppStrings.houseImage
-    let title: String = AppStrings.cardUnavailableTitle
-    let description: String? = AppStrings.cardUnavailableDescription
-    let additionalDescription: String? = AppStrings.additionalDescriptionA + " "
+    let imageName: String = AppStrings.Icons.house
+    let title: String = AppStrings.Titles.cardUnavailable
+    let description: String? = AppStrings.Descriptions.cardUnavailable
+    let additionalDescription: String? = AppStrings.AdditionalDescriptions.contentA
     let phoneNumbers: [PhoneNumber]? = [
-        PhoneNumber(displayText: AppStrings.phoneNumber1Display, dialNumber: AppStrings.phoneNumber1Dial),
-        PhoneNumber(displayText: AppStrings.phoneNumber2Display, dialNumber: AppStrings.phoneNumber2Dial)
+        PhoneNumber(displayText: AppStrings.PhoneNumbers.Display.tollFree, dialNumber: AppStrings.PhoneNumbers.Dial.tollFree),
+        PhoneNumber(displayText: AppStrings.PhoneNumbers.Display.yym, dialNumber: AppStrings.PhoneNumbers.Dial.yym)
     ]
     let showRefreshButton: Bool = true
 }
 
 struct ImportantMessage: MemberIDModelContentState {
-    let imageName: String = "house.fill"
-    let title: String = "Important Messaage"
-    let description: String? = "we are sorry bit this feature is not available so how is your day going on hope everythiong is alright please do let me know"
-    let additionalDescription: String? = "Please call at +1 678-702-3368 (toll free) or if you have any other question call me at 771 (YYM)."
-    let phoneNumbers: [PhoneNumber]? = [PhoneNumber(displayText: "+1 678-702-3368 (toll free)", dialNumber: "+16787023368"),
-    PhoneNumber(displayText: "771 (YYM)", dialNumber: "771")]
+    let imageName: String = AppStrings.Icons.house
+    let title: String = AppStrings.Titles.importantMessage
+    let description: String? = AppStrings.Descriptions.cardUnavailable
+    let additionalDescription: String? = AppStrings.AdditionalDescriptions.contentA
+    let phoneNumbers: [PhoneNumber]? = [
+        PhoneNumber(displayText: AppStrings.PhoneNumbers.Display.tollFree, dialNumber: AppStrings.PhoneNumbers.Dial.tollFree),
+        PhoneNumber(displayText: AppStrings.PhoneNumbers.Display.yym, dialNumber: AppStrings.PhoneNumbers.Dial.yym)
+    ]
     let showRefreshButton: Bool = false
 }
 
-class PANErrorViewModel: ObservableObject {
+// MARK: - View Model
+@MainActor
+final class PANErrorViewModel: ObservableObject {
     private let contentState: MemberIDModelContentState
     
-    var title: String {contentState.title}
-    var imageName: String {contentState.imageName}
-    var description: String? {contentState.description}
-    var additionalDescription: String? {contentState.additionalDescription}
-    var phoneNumbers: [PhoneNumber]? {contentState.phoneNumbers}
-    var showRefreshButton: Bool? {contentState.showRefreshButton}
+    // MARK: - Computed Properties
+    var title: String { contentState.title }
+    var imageName: String { contentState.imageName }
+    var description: String? { contentState.description }
+    var additionalDescription: String? { contentState.additionalDescription }
+    var phoneNumbers: [PhoneNumber]? { contentState.phoneNumbers }
+    var showRefreshButton: Bool { contentState.showRefreshButton }
     
-    
-    init(contentState: MemberIDModelContentState = MemberIDCardUnavailable() ) {
+    // MARK: - Initialization
+    init(contentState: MemberIDModelContentState = MemberIDCardUnavailable()) {
         self.contentState = contentState
     }
     
-    @MainActor
+    // MARK: - Actions
     func refreshContent() async {
-        try? await Task.sleep(nanoseconds: 500_00_000) // 0.5 seconds
+        try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
         
         // Since we can't change the state after init, this is just a placeholder
         // In a real implementation, this could trigger data refresh or notification

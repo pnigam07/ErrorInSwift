@@ -1,53 +1,76 @@
 import SwiftUI
 
+// MARK: - Models
+struct PhoneNumber: Equatable {
+    let displayText: String
+    let dialNumber: String
+    
+    var phoneURL: URL? {
+        URL(string: "tel:\(dialNumber)")
+    }
+}
 
+// MARK: - Phone Service
+protocol PhoneServiceProtocol {
+    func callPhone(url: URL)
+}
+
+final class PhoneService: PhoneServiceProtocol {
+    func callPhone(url: URL) {
+        print("Calling: \(url.absoluteString)")
+        UIApplication.shared.open(url)
+    }
+}
+
+// MARK: - Phone View
 struct PhoneView: View {
-    let message: String
-    let phoneNumbers: [PhoneNumber]
-    let phoneService = PhoneService()
+    private let message: String
+    private let phoneNumbers: [PhoneNumber]
+    private let phoneService: PhoneServiceProtocol
+    
+    init(
+        message: String,
+        phoneNumbers: [PhoneNumber],
+        phoneService: PhoneServiceProtocol = PhoneService()
+    ) {
+        self.message = message
+        self.phoneNumbers = phoneNumbers
+        self.phoneService = phoneService
+    }
     
     var body: some View {
-        Text(makeAttributedString())
+        Text(attributedMessage)
             .font(.body)
             .multilineTextAlignment(.center)
-            .onOpenURL { url in
-                if url.scheme == "tel" {
-                    phoneService.callPhone(url: url)
-                }
-            }
+            .onOpenURL(perform: handlePhoneCall)
             .padding(.horizontal)
-            .tag("phoneViewText")
             .accessibilityLabel("Phone Contact Information")
             .accessibilityIdentifier("phoneViewText")
     }
-    
-    private func makeAttributedString() -> AttributedString {
+}
+
+// MARK: - Private Methods
+private extension PhoneView {
+    var attributedMessage: AttributedString {
         var attributed = AttributedString(message)
-        for phone in phoneNumbers {
-            if let range = attributed.range(of: phone.displayText) {
-                attributed[range].link = URL(string: "tel:\(phone.dialNumber)")
+        
+        for phoneNumber in phoneNumbers {
+            if let range = attributed.range(of: phoneNumber.displayText) {
+                attributed[range].link = phoneNumber.phoneURL
                 attributed[range].foregroundColor = .blue
             }
         }
+        
         return attributed
     }
-}
-
-    //extension PhoneView: Inspectable {}
-
-struct PhoneNumber {
-    let displayText: String
-    let dialNumber: String
-}
-
-class PhoneService {
-    func callPhone(url: URL) {
-        print("calling \(url.absoluteString)")
-        UIApplication.shared.open(url)
-        
+    
+    func handlePhoneCall(_ url: URL) {
+        guard url.scheme == "tel" else { return }
+        phoneService.callPhone(url: url)
     }
 }
 
+// MARK: - Preview
 #Preview {
     PhoneView(
         message: "Please call at +1 678-702-3368 (toll free) or if you have any other question call me at 771 (YYM).",
