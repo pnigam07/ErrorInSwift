@@ -80,14 +80,10 @@ struct ErrorContactView: View {
 
 // MARK: - Error Refresh Button Component
 struct ErrorRefreshButtonView: View {
-    let action: () async -> Void
+    let action: () -> Void
     
     var body: some View {
-        Button(action: {
-            Task {
-                await action()
-            }
-        }) {
+        Button(action: action) {
             HStack {
                 Image(systemName: "arrow.clockwise")
                     .font(.system(size: 16))
@@ -125,7 +121,7 @@ struct PANErrorView: View {
             }
             
             // Build Error Contact (if available)
-            if let additionalDescription = viewModel.additionalDescription,
+            if let additionalDescription = viewModel.additionalDescription, 
                let phoneNumbers = viewModel.phoneNumbers {
                 ErrorContactView(
                     additionalDescription: additionalDescription,
@@ -136,7 +132,9 @@ struct PANErrorView: View {
             // Build Error Refresh Button (if enabled)
             if viewModel.showRefreshButton == true {
                 ErrorRefreshButtonView {
-                    await viewModel.refreshContent()
+                    Task {
+                        await viewModel.refreshContent()
+                    }
                 }
             }
             

@@ -61,9 +61,7 @@ final class PANErrorViewModel: ObservableObject {
     }
     
     // MARK: - Actions
-    func refreshContent() async {
-        try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
-        
+    func refreshContent() {
         // Since we can't change the state after init, this is just a placeholder
         // In a real implementation, this could trigger data refresh or notification
     }
